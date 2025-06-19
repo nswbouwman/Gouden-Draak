@@ -1,0 +1,106 @@
+#cashDesk {
+    width: 100%;
+}
+
+#cashDeskLeft {
+    margin-top:20px;
+    width: 60%;
+    height: 600px;
+    border-right: 2px solid rgb(0,102,255);
+    padding: 10px;
+    box-sizing: border-box;
+    float: left;
+}
+
+#cashDeskRight {
+    margin-top:20px;
+    height: 600px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 40%;
+    float: left;
+}
+
+#cashDeskRight form{
+    height: 100%;
+}
+
+#itemsToSelect, #itemsSelected {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(0,102,255);
+    border-radius: 5px 0px 0px 5px;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+#itemsSelected {
+    height: 85%;
+}
+
+#itemsSelectedContainer {
+    height: 100%;
+}
+
+#itemsSelectedTotal{
+    padding: 10px;
+    width: 100%;
+    height: 15%;
+    border: 1px solid rgb(0,102,255);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.menuItemType, .orderHeader {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0px 10px 0px;
+}
+
+.menuItemType:first-child, .orderHeader{
+    margin-top: 0px;
+}
+
+.itemToSelectTable, .itemSelectedTable, .itemSelectedTotalTable {
+    width: 100%;
+}
+
+.itemSelectedTable input {
+    width: 100%;
+}
+
+.itemSelectedTotalTable {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.itemToSelectTable tr td:nth-child(1),
+.itemSelectedTable tr td:nth-child(1),
+.itemSelectedTotalTable tr td:nth-child(1){
+    width: 10%;
+    vertical-align: top;
+}
+
+.itemToSelectTable tr td:nth-child(2){
+width: 70%;
+}
+
+.itemSelectedTable tr td:nth-child(2){
+    width: 65%;
+}
+
+.itemToSelectTable tr td:nth-child(3),
+.itemSelectedTable tr td:nth-child(3){
+    width: 10%;
+    min-width: 70px;
+}
+
+.itemSelectedTotalTable tr td:nth-child(2){
+    width: 50%;
+}
+
+.itemSelectedTotalTable tr td:nth-child(3){
+    width: 15%;
+}

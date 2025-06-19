@@ -1,0 +1,19 @@
+#loginDiv {
+    width: 250px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+}
+
+#loginDiv input {
+    margin: 2px;
+    width: 100%;
+}
+
+#loginDiv input[type='submit']{
+    width: 60%;
+}
