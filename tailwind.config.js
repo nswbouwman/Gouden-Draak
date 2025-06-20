@@ -13,12 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                'chinese': ['chinese_takeawayregular', 'sans-serif'],
             },
-            colors: {
-                'darkred': '#8B0000',
-                'floralwhite': '#FFFAF0'
-            }
         },
     },
 

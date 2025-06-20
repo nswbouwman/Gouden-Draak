@@ -1,3 +1,33 @@
+@font-face {
+    font-family: 'chinese_takeawayregular';
+    src: url('/fonts/chinesetakeaway-webfont.woff2') format('woff2'),
+         url('/fonts/chinesetakeaway-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-chinese {
+    font-family: 'chinese_takeawayregular', sans-serif;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.marquee {
+    animation: marquee 15s linear infinite;
+    white-space: nowrap;
+}
+
+.bg-darkred {
+    background-color: #8B0000;
+}
+
+.bg-floralwhite {
+    background-color: floralwhite;
+}
