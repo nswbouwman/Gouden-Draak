@@ -4,8 +4,20 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/menukaart', function () {
+    return view('menu');
+})->name('menu');
+
+Route::get('/nieuws', function () {
+    return view('news');
+})->name('news');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 Route::get('/legacy', function () {
     return view('legacy.index.html');
