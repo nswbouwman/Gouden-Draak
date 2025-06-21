@@ -39,7 +39,7 @@ Route::get('/legacy', function () {
 
 Route::get('/logout', function () {
     session()->flush();
-    return redirect('/login');
+    return redirect('/');
 })->name('logout');
 
 // Route::middleware('auth')->group(function () {
