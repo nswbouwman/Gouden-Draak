@@ -7,7 +7,7 @@
         </td>
         <td class="overflow-hidden">
             <a href="paginas/aanbiedingen.html" class="text-yellow-400 font-bold no-underline">
-                <div class="marquee">
+                <div class="marquee font-serif font-bold">
                     Welkom bij De Gouden Draak. Klik op deze tekst om de aanbiedingen van deze week te zien!
                 </div>
             </a>
@@ -73,24 +73,24 @@
                         <p class="relative">
                             <img src="images/dragon-small.png" class="float-left h-48" alt="Golden Dragon"> 
                             <img src="images/dragon-small-flipped.png" class="float-right h-48" alt="Golden Dragon"> 
-                            <span class="text-4xl font-bold text-yellow-400">Chinees Indische Specialiteiten</span><br>
-                            <span class="text-5xl font-bold text-yellow-400">De Gouden Draak</span><br>
+                            <span class="text-4xl text-yellow-400 font-serif font-bold">Chinees Indische Specialiteiten</span><br>
+                            <span class="text-5xl text-yellow-400 font-serif font-bold">De Gouden Draak</span><br>
                         </p>
                         <p>
                             <table class="mx-auto text-xl text-white border border-white">
                                 <tr style="background-image: url('images/menu_bg_gradient.png');">
                                     <td class="align-middle">
-                                        <a href="{{ route('menu') }}" class="text-white no-underline px-6">
+                                        <a href="{{ route('menu') }}" class="text-white font-serif no-underline px-6">
                                             Menukaart
                                         </a>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{{ route('news') }}" class="text-white no-underline px-6">
+                                        <a href="{{ route('news') }}" class="text-white font-serif no-underline px-6">
                                             Nieuws
                                         </a>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{{ route('contact') }}" class="text-white no-underline px-6">
+                                        <a href="{{ route('contact') }}" class="text-white font-serif no-underline px-6">
                                             Contact
                                         </a>
                                     </td>
