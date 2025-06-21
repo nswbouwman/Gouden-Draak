@@ -4,19 +4,19 @@
     </div>
 
     <div class="flex items-center space-x-6">
-        <a href="{{ route('cashdesk-index') }}">
+        <a href="{{ route('cashdesk.index') }}">
             <div class="px-6 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg border border-blue-500 hover:bg-blue-200 transition">
                 Kassa
             </div>
         </a>
 
-        <a href="{{ route('cashdesk-menu') }}">
+        <a href="{{ route('cashdesk.menu') }}">
             <div class="px-6 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg border border-blue-500 hover:bg-blue-200 transition">
                 Gerechten
             </div>
         </a>
 
-        <a href="{{ route('cashdesk-menu') }}">
+        <a href="{{ route('sales.index') }}">
             <div class="px-6 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg border border-blue-500 hover:bg-blue-200 transition">
                 Verkoop Overzicht
             </div>
