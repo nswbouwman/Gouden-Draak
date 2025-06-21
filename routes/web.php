@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CashDeskController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,17 +21,22 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/kassa', function () {
-    return view('/cashdesk/index');
-})->middleware(['auth'])->name('kassa-index');
+Route::get('/kassa', [CashDeskController::class, 'index'])->middleware(['auth'])->name('cashdesk-index');
 
 Route::get('/kassa/menu', function () {
     return view('/cashdesk/menu');
-})->middleware(['auth'])->name('kassa-menu');
+})->middleware(['auth'])->name('cashdesk-menu');
+
+Route::post('/orders', [OrderController::class, 'store'])->middleware('auth');
 
 Route::get('/legacy', function () {
     return view('legacy.index.html');
 });
+
+Route::get('/logout', function () {
+    session()->flush();
+    return redirect('/login');
+})->name('logout');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

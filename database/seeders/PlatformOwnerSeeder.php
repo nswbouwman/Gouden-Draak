@@ -20,7 +20,7 @@ class PlatformOwnerSeeder extends Seeder
 
             $user = User::create([
                 'name' => 'Jing Jang',
-                'email' => 'jingjang@goudendraak.com',
+                'email' => 'admin@goudendraak.nl',
                 'password' => Hash::make('123'),
             ]);
 
