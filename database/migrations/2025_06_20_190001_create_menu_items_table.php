@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('dish_type_id');
-            $table->string('menu_number');
+            $table->string('menu_number')->nullable();
             $table->string('menu_suffix')->nullable();
             $table->string('name');
             $table->text('description')->nullable();

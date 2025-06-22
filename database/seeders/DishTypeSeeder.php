@@ -23,6 +23,14 @@ class DishTypeSeeder extends Seeder
             'KIP GERECHTEN (met witte rijst)',
             'GARNALEN GERECHTEN (met witte rijst)',
             'OSSENHAAS GERECHTEN (met witte rijst)',
+            'VISSEN GERECHTEN (met witte rijst)',
+            'PEKING EEND GERECHTEN (met witte rijst)',
+            'TIEPAN SPECIALITEITEN (met witte rijst)',
+            'VEGETARISCHE GERECHTEN (met witte rijst)',
+            'KINDERMENUS',
+            'RIJSTTAFELS',
+            'BUFFET',
+            'DIVERSEN',
         ];
 
         foreach ($types as $type) {

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const beginDate = form.beginDate.value;
         const endDate = form.endDate.value;
 
-        fetch("/sales/data", {
+        fetch("/verkoopoverzicht/data", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -157,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         const result = await response.json();
+
         if (result.success) {
             alert("Bestelling succesvol geplaatst!");
             location.reload();
