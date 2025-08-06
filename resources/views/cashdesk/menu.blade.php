@@ -12,6 +12,10 @@
                                 @if($item->menu_suffix)
                                     {{ $item->menu_suffix }}
                                 @endif.
+                            @else
+                                @if($item->menu_suffix)
+                                    {{ $item->menu_suffix }} .
+                                @endif
                             @endif
                             {{ $item->name }}
                             @if($item->description)
