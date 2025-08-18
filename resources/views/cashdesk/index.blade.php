@@ -12,9 +12,9 @@
                                 <tr>
                                     <td class="w-[10%] align-top">{{ $item->menu_number }}{{ $item->menu_suffix }}.</td>
                                     <td class="w-[70%]">
-                                        {{ $item->name }}
+                                        {!! $item->name !!}
                                         @if (!empty($item->description))
-                                            <i>({{ $item->description }})</i>
+                                            <i>({!! $item->description !!})</i>
                                         @endif
                                     </td>
                                     <td class="w-[10%] min-w-[70px]">€ {{ number_format($item->price, 2, ',', ' ') }}</td>
@@ -41,9 +41,9 @@
                                 <tr class="hidden menuItem_{{ $item->id }}" data-price="{{ $item->price }}">
                                     <td class="w-[10%] align-top">{{ $item->menu_number }}{{ $item->menu_suffix }}.</td>
                                     <td class="w-[65%]">
-                                        {{ $item->name }}
+                                        {!! $item->name !!}
                                         @if (!empty($item->description))
-                                            <i>({{ $item->description }})</i>
+                                            <i>({!! $item->description !!})</i>
                                         @endif
                                     </td>
                                     <td class="w-[10%] min-w-[70px]">

@@ -7,19 +7,16 @@
                 @foreach($items as $item)
                     <li class="flex justify-between py-1 border-b border-dotted border-gray-300">
                         <span>
-                            @if($item->menu_number)
-                                {{ $item->menu_number }}
-                                @if($item->menu_suffix)
-                                    {{ $item->menu_suffix }}
-                                @endif.
+                            @if ($item->menu_number)
+                                {{ $item->menu_number }}{{ $item->menu_suffix ? $item->menu_suffix . '.' : '.' }}
                             @else
-                                @if($item->menu_suffix)
-                                    {{ $item->menu_suffix }} .
+                                @if ($item->menu_suffix)
+                                    {{ $item->menu_suffix }}.
                                 @endif
                             @endif
-                            {{ $item->name }}
+                            {!! $item->name !!}
                             @if($item->description)
-                                <span class="text-gray-500 italic">({{ $item->description }})</span>
+                                <span class="text-gray-500 italic">({!! $item->description !!})</span>
                             @endif
                         </span>
                         <span>€ {{ number_format($item->price, 2, ',', '.') }}</span>
