@@ -11,9 +11,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/menukaart', function () {
-    return view('menu');
-})->name('menu');
+Route::get('/menukaart', [MenuController::class, 'menu'])->name('menu');
 
 Route::get('/nieuws', function () {
     return view('news');
