@@ -14,6 +14,8 @@ Route::get('/', function () {
 
 Route::get('/menukaart', [MenuController::class, 'menu'])->name('menu');
 
+Route::post('/menu/favorite/toggle', [MenuController::class, 'toggleFavorite'])->name('menu.favorite.toggle');
+
 Route::get('/nieuws', function () {
     return view('news');
 })->name('news');
