@@ -31,6 +31,8 @@ Route::get('/verkoopoverzicht', [CashDeskController::class, 'salesOverview'])->n
 Route::post('/verkoopoverzicht/data', [CashDeskController::class, 'salesOverviewData'])->name('sales.data');
 
 Route::get('/bestellingen/{table_nr}', [OrderController::class, 'index'])->name('orders.index');
+Route::post('/bestellingen/{table_nr}', [OrderController::class, 'store'])->name('orders.store');
+
 Route::post('/orders', [CashDeskController::class, 'storeOrder'])->middleware('auth');
 
 Route::get('/legacy', function () {

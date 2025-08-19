@@ -15,4 +15,15 @@ class OrderController extends Controller
 
         return view('orders', compact('table_nr', 'dishTypes'));
     }
+
+    public function store(Request $request, $table_nr)
+    {
+        $validated = $request->validate([
+            'items' => 'required|array',
+            'items.*.id' => 'required|exists:menu_items,id',
+            'items.*.quantity' => 'required|integer|min:1|max:20',
+        ]);
+
+        return response()->json(['success' => true]);
+    }
 }
