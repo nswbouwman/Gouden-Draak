@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CashDeskController;
 use App\Http\Controllers\OrderController;
+// TODO This controller doesn't exist v
 use App\Http\Controllers\SalesOverviewController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::get('/kassa/menu', [CashDeskController::class, 'menu'])->middleware(['aut
 Route::get('/verkoopoverzicht', [CashDeskController::class, 'salesOverview'])->name('sales.index');
 Route::post('/verkoopoverzicht/data', [CashDeskController::class, 'salesOverviewData'])->name('sales.data');
 
+Route::get('/bestellingen/{table_nr}', [OrderController::class, 'index'])->name('orders.index');
 Route::post('/orders', [CashDeskController::class, 'storeOrder'])->middleware('auth');
 
 Route::get('/legacy', function () {
