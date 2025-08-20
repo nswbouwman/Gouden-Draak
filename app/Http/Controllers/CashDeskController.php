@@ -16,7 +16,15 @@ class CashDeskController extends Controller
             $query->orderBy('menu_number')->orderBy('menu_suffix');
         }])->get();
 
-        return view('cashdesk.index', compact('dishTypes'));
+        $remarks = OrderItem::whereNotNull('remark')
+            ->where('remark', '!=', '')
+            ->selectRaw('remark, COUNT(*) as count')
+            ->groupBy('remark')
+            ->orderByDesc('count')
+            ->limit(10)
+            ->pluck('remark');
+
+        return view('cashdesk.index', compact('dishTypes', 'remarks'));
     }
 
     public function storeOrder(Request $request)
@@ -25,6 +33,7 @@ class CashDeskController extends Controller
             'items' => 'required|array',
             'items.*.id' => 'required|exists:menu_items,id',
             'items.*.quantity' => 'required|integer|min:1',
+            'items.*.remark' => 'nullable|string|max:255',
         ]);
 
         $order = Order::create();
@@ -36,6 +45,7 @@ class CashDeskController extends Controller
                 'menu_item_id' => $menuItem->id,
                 'quantity' => $item['quantity'],
                 'price' => $menuItem->price,
+                'remark' => $item['remark'] ?? null,
             ]);
         }
 
