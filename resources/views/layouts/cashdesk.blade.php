@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body">
-        @include('layouts.admin-navigation')
+        @include('layouts.cashdesk-navigation')
 
         <!-- Page Heading -->
         @isset($header)

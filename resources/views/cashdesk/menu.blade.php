@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-cashdesk-layout>
 <div class="p-4 bg-white rounded shadow text-sm font-serif max-w-6xl mx-auto">
     @foreach($menuItems as $category => $items)
         <div class="mb-8 break-inside-avoid-column">
@@ -26,4 +26,4 @@
         </div>
     @endforeach
 </div>
-</x-admin-layout>
+</x-cashdesk-layout>

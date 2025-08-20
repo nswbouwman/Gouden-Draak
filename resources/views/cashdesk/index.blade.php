@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-cashdesk-layout>
     <div class="w-full">
     <div class="flex mt-5 h-[600px]">
         <!-- Left Side -->
@@ -102,7 +102,7 @@
         </div>
     </div>
 </div>
-</x-admin-layout>
+</x-cashdesk-layout>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
