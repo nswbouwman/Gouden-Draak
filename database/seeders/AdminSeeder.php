@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
-class PlatformOwnerSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        if (User::role('platform_owner')->count() == 0) {
-            $role = Role::firstOrCreate(['name' => 'platform_owner']);
+        if (User::role('admin')->count() == 0) {
+            $role = Role::firstOrCreate(['name' => 'admin']);
 
             $user = User::create([
-                'name' => 'Jing Jang',
+                'name' => 'Jing Jang Admin',
                 'email' => 'admin@goudendraak.nl',
                 'password' => Hash::make('123'),
             ]);

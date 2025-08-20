@@ -6,6 +6,7 @@ use App\Http\Controllers\OrderController;
 // TODO This controller doesn't exist v
 use App\Http\Controllers\SalesOverviewController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,6 +35,10 @@ Route::get('/bestellingen/{table_nr}', [OrderController::class, 'index'])->name(
 Route::post('/bestellingen/{table_nr}', [OrderController::class, 'store'])->name('orders.store');
 
 Route::post('/orders', [CashDeskController::class, 'storeOrder'])->middleware('auth');
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+});
 
 Route::get('/legacy', function () {
     return view('legacy.index.html');
