@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DishType;
+use App\Models\Order;
+use App\Models\MenuItem;
+use App\Models\OrderItem;
 
 class OrderController extends Controller
 {
@@ -18,11 +21,46 @@ class OrderController extends Controller
 
     public function store(Request $request, $table_nr)
     {
+        $latestOrderTime = Order::where('table_nr', $table_nr)->orderBy('created_at', 'desc')->first();
+        $placedOrderAmount = Order::where('table_nr', $table_nr)->count();
+
+        if ($placedOrderAmount > 0) {
+            if ($placedOrderAmount >= 5) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Je hebt het maximale aantal bestelling gehaald.'
+                ], 429);
+            }
+    
+            $timeDifference = -now()->diffInMinutes($latestOrderTime->created_at);
+    
+            if ($timeDifference < 10) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Je moet nog ' . round(10 - $timeDifference, 2) . ' minuten wachten voordat je opnieuw kunt bestellen.'
+                ], 429);
+            }
+        }
+
         $validated = $request->validate([
             'items' => 'required|array',
             'items.*.id' => 'required|exists:menu_items,id',
             'items.*.quantity' => 'required|integer|min:1|max:20',
         ]);
+
+        $order = Order::create([
+            'table_nr' => $table_nr,
+        ]);
+
+        foreach ($validated['items'] as $item) {
+            $menuItem = MenuItem::find($item['id']);
+            OrderItem::create([
+                'order_id' => $order->id,
+                'menu_item_id' => $menuItem->id,
+                'quantity' => $item['quantity'],
+                'price' => $menuItem->price,
+            ]);
+        }
 
         return response()->json(['success' => true]);
     }

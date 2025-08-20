@@ -4,10 +4,10 @@
         <h2 class="text-2xl font-bold">Tafel {{ $table_nr }}</h2>
         <p class="mb-4">Bevestigen doe je onderaan!</p>
 
-        <div class="p-4 bg-white rounded shadow text-sm font-serif max-w-6xl mx-auto">
+        <div class="p-4 bg-white rounded-t shadow text-sm font-serif max-w-6xl mx-auto">
             @foreach ($dishTypes as $type)
                 <div class="mb-8 break-inside-avoid-column">
-                    <h2 class="text-xl font-bold border-b border-gray-300 mb-2 pe-46">
+                    <h2 class="text-xl font-bold border-b border-gray-300 mb-2 pe-[11.5rem]">
                         {{ strtoupper($type->name) }}
                     </h2>
                     <ul>
@@ -41,59 +41,66 @@
         </div>
 
         <!-- Order -->
-        <div class="p-5 h-[85%] w-full border border-blue-600 rounded-l-md overflow-y-scroll box-border">
-            <div class="text-lg font-bold text-center mb-4">Bestelling</div>
-            <table class="w-full itemSelectedTable">
+        <div class="p-4 bg-white shadow text-sm font-serif max-w-6xl mx-auto">
+            <div class="text-lg font-bold text-center mb-4 pe-[11.5rem]">Gerechten in bestelling</div>
+            <div class="pe-[11.5rem]" id="empty">De bestelling is op dit moment leeg.</div>
+            <ul class="itemSelectedList">
                 @foreach ($dishTypes as $type)
                     @foreach ($type->menuItems as $item)
-                        <tr class="hidden menuItem_{{ $item->id }}" data-price="{{ $item->price }}">
-                            <td class="w-[10%] align-top">{{ $item->menu_number }}{{ $item->menu_suffix }}.</td>
-                            <td class="w-[65%]">
-                                {!! $item->name !!}
-                                @if (!empty($item->description))
-                                    <i>({!! $item->description !!})</i>
-                                @endif
-                            </td>
-                            <td class="w-[10%] min-w-[70px]">
-                                <span>€ </span><span
-                                    class="subAmount">{{ number_format($item->price, 2, ',', ' ') }}</span>
-                            </td>
-                            <td class="w-[15%]">
+                        <li class="hidden menuItem_{{ $item->id }} flex items-center border-b border-dotted border-gray-300 py-2"
+                            data-price="{{ $item->price }}">
+                            <div class="flex items-center flex-1">
+                                <span class="flex-1">
+                                    @if ($item->menu_number)
+                                        {{ $item->menu_number }}{{ $item->menu_suffix }}.
+                                    @else
+                                        @if ($item->menu_suffix)
+                                            {{ $item->menu_suffix }}.
+                                        @endif
+                                    @endif
+                                    {!! $item->name !!}
+                                    @if ($item->description)
+                                        <span class="text-gray-500 italic">({!! $item->description !!})</span>
+                                    @endif
+                                </span>
+                            </div>
+                            <span class="ml-4 me-4 w-14">€ <span
+                                    class="subAmount">{{ number_format($item->price, 2, ',', '.') }}</span></span>
+                            <div class="w-24">
                                 <input type="number" name="{{ $item->id }}" min="0" max="20"
                                     value="0" class="w-full border rounded px-1 py-0.5">
-                            </td>
-                        </tr>
+                            </div>
+                        </li>
                     @endforeach
                 @endforeach
-            </table>
+            </ul>
         </div>
 
         <!-- Total -->
-        <div class="p-4 h-[15%] w-full border border-blue-600 rounded box-border mt-2">
-            <table class="w-full text-xl font-bold">
-                <tr>
-                    <td class="w-[10%]"></td>
-                    <td class="w-[50%]">Totaal:</td>
-                    <td class="w-[15%]">
-                        <span>€ </span><span class="totalAmount">0,00</span>
-                    </td>
-                    <td class="w-[25%] flex space-x-2">
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
-                            id="payOrder">Afrekenen</button>
-                        <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
-                            id="clearOrder">Verwijderen</button>
-                    </td>
-                </tr>
-            </table>
+        <div class="p-4 bg-white rounded-b shadow text-sm font-serif max-w-6xl mx-auto">
+            <div class="pe-[11.5rem]">
+                <div class="flex justify-center mb-4">
+                    <p class="me-8">Totaal:</p>
+                    <span>€ </span><span class="totalAmount">0,00</span>
+                </div>
+                <div class="ms-4">
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
+                        id="payOrder">Bestellen</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded ms-8"
+                        id="clearOrder">Verwijderen</button>
+                </div>
+            </div>
         </div>
     </x-slider-with-border-tablet>
 </x-app-layout>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        let emptyState = document.getElementById('empty');
+
         function updateTotal() {
             let total = 0;
-            document.querySelectorAll('.itemSelectedTable tr:not(.hidden)').forEach(row => {
+            document.querySelectorAll('.itemSelectedList li:not(.hidden)').forEach(row => {
                 const input = row.querySelector('input[type="number"]');
                 const price = parseFloat(row.dataset.price);
                 const qty = parseInt(input.value);
@@ -110,6 +117,7 @@
                 const itemId = button.value;
                 const row = document.querySelector(`.menuItem_${itemId}`);
                 const input = row.querySelector('input[type="number"]');
+                emptyState.classList.add('hidden');
                 row.classList.remove('hidden');
                 input.value = parseInt(input.value) + 1;
                 updateTotal();
@@ -117,11 +125,14 @@
         });
 
         // Change input value
-        document.querySelectorAll('.itemSelectedTable input[type="number"]').forEach(input => {
+        document.querySelectorAll('.itemSelectedList input[type="number"]').forEach(input => {
             input.addEventListener('input', () => {
-                const row = input.closest('tr');
+                const row = input.closest('li');
                 if (parseInt(input.value) <= 0) {
                     input.value = 0;
+                    if (document.querySelectorAll('.itemSelectedList li:not(.hidden)').length === 1) {
+                        emptyState.classList.remove('hidden');
+                    }
                     row.classList.add('hidden');
                 }
                 if (parseInt(input.value) > 20) {
@@ -133,17 +144,18 @@
 
         // Clear Order
         document.getElementById('clearOrder').addEventListener('click', () => {
-            document.querySelectorAll('.itemSelectedTable tr').forEach(row => {
+            document.querySelectorAll('.itemSelectedList li').forEach(row => {
                 row.classList.add('hidden');
                 row.querySelector('input').value = 0;
             });
+            emptyState.classList.remove('hidden');
             updateTotal();
         });
 
         // Pay Order
         document.getElementById('payOrder').addEventListener('click', async () => {
             const items = [];
-            document.querySelectorAll('.itemSelectedTable tr:not(.hidden)').forEach(row => {
+            document.querySelectorAll('.itemSelectedList li:not(.hidden)').forEach(row => {
                 const input = row.querySelector('input[type="number"]');
                 const id = input.name;
                 const qty = parseInt(input.value);
@@ -162,7 +174,7 @@
 
             const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            const response = await fetch('/orders', {
+            const response = await fetch(`/bestellingen/{{ $table_nr }}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -178,7 +190,10 @@
             if (result.success) {
                 alert("Bestelling succesvol geplaatst!");
                 location.reload();
-            } else {
+            } else if (result.message) {
+                alert(result.message);
+            }
+            else {
                 alert("Er is een fout opgetreden.");
             }
         });
