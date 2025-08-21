@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CashDeskController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\OrderController;
 // TODO This controller doesn't exist v
 use App\Http\Controllers\SalesOverviewController;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('/menukaart', [MenuController::class, 'menu'])->name('menu');
 
@@ -34,6 +35,9 @@ Route::get('/bestellingen/{table_nr}', [OrderController::class, 'index'])->name(
 Route::post('/bestellingen/{table_nr}', [OrderController::class, 'store'])->name('orders.store');
 
 Route::post('/orders', [CashDeskController::class, 'storeOrder'])->middleware('auth');
+
+Route::get('/formulier', [FormController::class, 'index'])->name('form.index');
+Route::post('/formulier', [FormController::class, 'submit'])->name('form.submit');
 
 Route::get('/legacy', function () {
     return view('legacy.index.html');

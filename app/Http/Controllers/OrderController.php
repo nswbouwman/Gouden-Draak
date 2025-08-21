@@ -7,6 +7,7 @@ use App\Models\DishType;
 use App\Models\Order;
 use App\Models\MenuItem;
 use App\Models\OrderItem;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class OrderController extends Controller
 {
@@ -16,7 +17,12 @@ class OrderController extends Controller
             $query->orderBy('menu_number')->orderBy('menu_suffix');
         }])->get();
 
-        return view('orders', compact('table_nr', 'dishTypes'));
+        $orderCount = Order::where('table_nr', $table_nr)->count();
+
+        $url = route('form.index');
+        $qr = QrCode::size(200)->generate($url);
+
+        return view('orders', compact('table_nr', 'dishTypes', 'qr', 'orderCount'));
     }
 
     public function store(Request $request, $table_nr)

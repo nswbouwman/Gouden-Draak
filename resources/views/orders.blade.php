@@ -90,6 +90,15 @@
                         id="clearOrder">Verwijderen</button>
                 </div>
             </div>
+            @if ($orderCount > 0)
+                <div class="pe-[11.5rem]">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded mt-8 text-lg"
+                        id="pay">Afrekennen</button>
+                </div>
+            @endif
+        </div>
+        <div class="p-4 bg-white rounded-b shadow text-sm font-serif max-w-6xl mx-auto flex justify-center pe-[12.5rem] hidden" id="qr">
+            <p>{!! $qr !!}</p>
         </div>
     </x-slider-with-border-tablet>
 </x-app-layout>
@@ -130,7 +139,8 @@
                 const row = input.closest('li');
                 if (parseInt(input.value) <= 0) {
                     input.value = 0;
-                    if (document.querySelectorAll('.itemSelectedList li:not(.hidden)').length === 1) {
+                    if (document.querySelectorAll('.itemSelectedList li:not(.hidden)')
+                        .length === 1) {
                         emptyState.classList.remove('hidden');
                     }
                     row.classList.add('hidden');
@@ -192,10 +202,13 @@
                 location.reload();
             } else if (result.message) {
                 alert(result.message);
-            }
-            else {
+            } else {
                 alert("Er is een fout opgetreden.");
             }
+        });
+
+        document.getElementById('pay').addEventListener('click', function() {
+            document.getElementById('qr').classList.remove('hidden');
         });
     });
 </script>

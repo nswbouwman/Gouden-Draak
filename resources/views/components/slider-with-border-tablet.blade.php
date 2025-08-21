@@ -5,13 +5,6 @@
             <span class="font-chinese">De Gouden Draak</span>
             <img class="align-middle inline h-12" src="{{ asset('images/dragon-small-flipped.png') }}" alt="Golden Dragon">
         </td>
-        <td class="overflow-hidden">
-            <a href="paginas/aanbiedingen.html" class="text-yellow-400 font-bold no-underline">
-                <div class="max-w-xs mx-auto marquee font-serif font-bold">
-                    Welkom bij De Gouden Draak. Klik op deze tekst om de aanbiedingen van deze week te zien!
-                </div>
-            </a>
-        </td>
         <td class="text-center w-3/10 text-yellow-400 text-3xl">
             <img class="align-middle inline h-12" src="{{ asset('images/dragon-small.png') }}" alt="Golden Dragon">
             <span class="font-chinese">De Gouden Draak</span>
@@ -80,9 +73,6 @@
                     <td class="w-12"></td>
                 </tr>
             </table>
-            <br>
-            <div class="text-center"><a href="{{ route('contact') }}" class="text-yellow-400 no-underline">Naar
-                    Contact</a></div>
         </td>
         <td class="w-6"></td>
         <td class="w-6"></td>
