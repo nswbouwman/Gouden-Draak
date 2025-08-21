@@ -18,8 +18,8 @@
         <nav class="bg-blue-900s p-4 flex justify-between">
             <div class="font-bold">Admin Dashboard</div>
             <div>
-                <a>Dashboard</a>
-                <a>Menu beheer</a>
+                <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+                <a href="{{ route('admin.menu.index') }}">Menu beheer</a>
                 <a>Pagina's</a>
                 <a href="{{ route('logout') }}" class="ml-12">
                     Uitloggen
