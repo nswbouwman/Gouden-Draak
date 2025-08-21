@@ -4,18 +4,18 @@
             
             <!-- Sorting Controls -->
             <div class="mb-6 flex flex-wrap gap-2">
-                <h3 class="text-lg font-bold mr-4 self-center">Sorteer Menu:</h3>
+                <h3 class="text-lg font-bold mr-4 self-center">{{ __('menu.sort-menu') }}</h3>
                 <a href="{{ route('menu') }}?sort=default" 
                    class="px-3 py-1 rounded {{ $sortType === 'default' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
-                    Standaard Volgorde
+                    {{ __('menu.standard-sort') }}
                 </a>
                 <a href="{{ route('menu') }}?sort=favorites-number" 
                    class="px-3 py-1 rounded {{ $sortType === 'favorites-number' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
-                    Favorieten Eerst (Nummer)
+                    {{ __('menu.favorites-first-number') }}
                 </a>
                 <a href="{{ route('menu') }}?sort=favorites-alpha" 
                    class="px-3 py-1 rounded {{ $sortType === 'favorites-alpha' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' }}">
-                    Favorieten Eerst (Alfabetisch)
+                    {{ __('menu.favorites-first-alphabetical') }}
                 </a>
             </div>
 
