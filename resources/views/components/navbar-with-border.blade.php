@@ -8,7 +8,7 @@
         <td class="overflow-hidden">
             <a href="paginas/aanbiedingen.html" class="text-yellow-400 font-bold no-underline">
                 <div class="marquee font-serif font-bold">
-                    Welkom bij De Gouden Draak. Klik op deze tekst om de aanbiedingen van deze week te zien!
+                    {{ __('navbar.welcome') }}
                 </div>
             </a>
         </td>
@@ -73,7 +73,7 @@
                         <p class="relative">
                             <img src="{{ asset('images/dragon-small.png') }}" class="float-left h-48" alt="Golden Dragon"> 
                             <img src="{{ asset('images/dragon-small-flipped.png') }}" class="float-right h-48" alt="Golden Dragon"> 
-                            <span class="text-4xl text-yellow-400 font-serif font-bold">Chinees Indische Specialiteiten</span><br>
+                            <span class="text-4xl text-yellow-400 font-serif font-bold">{{ __('navbar.speciality') }}</span><br>
                             <span class="text-5xl text-yellow-400 font-serif font-bold">De Gouden Draak</span><br>
                         </p>
                         <p>
@@ -81,17 +81,17 @@
                                 <tr style="background-image: url('{{ asset('images/menu_bg_gradient.png') }}');">
                                     <td class="align-middle">
                                         <a href="{{ route('menu') }}" class="text-white font-serif no-underline px-6">
-                                            Menukaart
+                                            {{ __('navbar.menucard') }}
                                         </a>
                                     </td>
                                     <td class="align-middle">
                                         <a href="{{ route('news') }}" class="text-white font-serif no-underline px-6">
-                                            Nieuws
+                                            {{ __('navbar.news') }}
                                         </a>
                                     </td>
                                     <td class="align-middle">
                                         <a href="{{ route('contact') }}" class="text-white font-serif no-underline px-6">
-                                            Contact
+                                            {{ __('navbar.contact') }}
                                         </a>
                                     </td>
                                 </tr>
@@ -111,7 +111,7 @@
                 </tr>
             </table>
             <br>
-            <div class="text-center"><a href="{{ route('contact') }}" class="text-yellow-400 no-underline">Naar Contact</a></div>
+            <div class="text-center"><a href="{{ route('contact') }}" class="text-yellow-400 no-underline">{{ __('navbar.to_contact') }}</a></div>
         </td>
         <td class="w-6"></td>
         <td class="w-6"></td>
