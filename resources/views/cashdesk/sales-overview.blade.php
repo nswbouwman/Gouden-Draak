@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-cashdesk-layout>
     <div class="flex flex-col lg:flex-row gap-6 p-6">
         <div class="w-full lg:w-1/4 border p-4 rounded shadow">
             <h2 class="text-xl font-bold mb-4">Selecteer datums</h2>
@@ -36,4 +36,4 @@
     </div>
 
     <script src="{{ asset('js/sales-overview.js') }}"></script>
-</x-admin-layout>
+</x-cashdesk-layout>

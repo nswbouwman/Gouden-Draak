@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-cashdesk-layout>
     <div class="w-full">
     <div class="flex mt-5 h-[600px]">
         <!-- Left Side -->
@@ -56,7 +56,7 @@
                             @foreach ($type->menuItems as $item)
                                 <tr class="hidden menuItem_{{ $item->id }}" data-price="{{ $item->price }}">
                                     <td class="w-[10%] align-top">{{ $item->menu_number }}{{ $item->menu_suffix }}.</td>
-                                    <td class="w-[65%]">
+                                    <td class="w-[40%]">
                                         {!! $item->name !!}
                                         @if (!empty($item->description))
                                             <i>({!! $item->description !!})</i>
@@ -65,8 +65,16 @@
                                     <td class="w-[10%] min-w-[70px]">
                                         <span>€ </span><span class="subAmount">{{ number_format($item->price, 2, ',', ' ') }}</span>
                                     </td>
-                                    <td class="w-[15%]">
+                                    <td class="w-[40%]">
                                         <input type="number" name="{{ $item->id }}" min="0" value="0" class="w-full border rounded px-1 py-0.5">
+                                        <select class="remarkSelect w-full mt-1 border rounded px-1 py-0.5">
+                                            <option value="">Kies veelgebruikte opmerking</option>
+                                            @foreach($remarks ?? [] as $remark)
+                                                <option value="{{ $remark }}">{{ $remark }}</option>
+                                            @endforeach
+                                            <option value="__custom__">Eigen opmerking...</option>
+                                        </select>
+                                        <input type="text" class="remarkInput w-full mt-1 border rounded px-1 py-0.5 hidden" placeholder="Eigen opmerking">
                                     </td>
                                 </tr>
                             @endforeach
@@ -94,7 +102,7 @@
         </div>
     </div>
 </div>
-</x-admin-layout>
+</x-cashdesk-layout>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -149,10 +157,18 @@
             const items = [];
             document.querySelectorAll('.itemSelectedTable tr:not(.hidden)').forEach(row => {
                 const input = row.querySelector('input[type="number"]');
+                const remarkSelect = row.querySelector('.remarkSelect');
+                const remarkInput = row.querySelector('.remarkInput');
                 const id = input.name;
                 const qty = parseInt(input.value);
+                let remark = '';
+                if (remarkSelect.value === '__custom__') {
+                    remark = remarkInput.value;
+                } else {
+                    remark = remarkSelect.value;
+                }
                 if (qty > 0) {
-                    items.push({ id, quantity: qty });
+                    items.push({ id, quantity: qty, remark });
                 }
             });
 
@@ -217,5 +233,19 @@
         searchInput.value = '';
         categoryFilter.value = '';
         filterMenu();
+    });
+
+    document.querySelectorAll('.remarkSelect').forEach(select => {
+        select.addEventListener('change', function() {
+            const input = select.closest('td').querySelector('.remarkInput');
+            if (select.value === '__custom__') {
+                input.classList.remove('hidden');
+                input.value = '';
+                input.focus();
+            } else {
+                input.classList.add('hidden');
+                input.value = select.value;
+            }
+        });
     });
 </script>

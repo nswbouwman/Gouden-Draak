@@ -14,18 +14,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body>
-        <nav class="bg-blue-900s p-4 flex justify-between">
-            <div class="font-bold">Admin Dashboard</div>
-            <div>
-                <a>Dashboard</a>
-                <a>Menu beheer</a>
-                <a>Pagina's</a>
-                <a href="{{ route('logout') }}" class="ml-12">
-                    Uitloggen
-                </a>
-            </div>
-        </nav>
+    <body">
+        @include('layouts.cashdesk-navigation')
 
         <!-- Page Heading -->
         @isset($header)
