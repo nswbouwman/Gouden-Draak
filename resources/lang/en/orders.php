@@ -9,4 +9,9 @@ return [
     'total' => 'Total:',
     'delete' => 'Delete',
     'pay' => 'Checkout',
+    'no-dishes' => 'No dishes selected.',
+    'order-placed' => 'Order placed successfully!',
+    'order-error' => 'An error has occurred.',
+    'max-orders-reached' => 'You have reached the maximum number of orders.',
+    'wait-minutes' => 'You must wait :minutes minutes before you can order again.'
 ];
