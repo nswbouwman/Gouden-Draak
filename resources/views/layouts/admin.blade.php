@@ -17,12 +17,11 @@
     </head>
     <body>
         <nav class="bg-blue-900s p-4 flex justify-between">
-            <a href="{{ route('admin.dashboard') }}" class="font-bold">Admin Dashboard</a>
+            <a href="{{ route('admin.dashboard') }}" class="font-bold">{{ __('admin/navigation.title') }}</a>
             <div>
-                <a href="{{ route('admin.menu.index') }}">Menu beheer</a>
-                <a>Pagina's</a>
+                <a href="{{ route('admin.menu.index') }}">{{ __('admin/menu.manage-menu') }}</a>
                 <a href="{{ route('logout') }}" class="ml-12">
-                    Uitloggen
+                    {{ __('admin/navigation.logout') }}
                 </a>
             </div>
         </nav>

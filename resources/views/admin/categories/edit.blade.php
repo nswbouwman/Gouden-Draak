@@ -1,12 +1,12 @@
 <x-admin-layout>
-    <h1 class="text-2xl font-bold mb-4">Categorie bewerken</h1>
+    <h1 class="text-2xl font-bold mb-4">{{ __('admin/categories.edit') }}</h1>
 
     <form action="{{ route('admin.categories.update', $category) }}" method="POST" class="space-y-4">
         @csrf
         @method('PUT')
 
         <div>
-            <label class="block mb-1 font-semibold">Naam</label>
+            <label class="block mb-1 font-semibold">{{ __('admin/categories.name') }}</label>
             <input type="text" name="name" value="{{ old('name', $category->name) }}"
                    class="border rounded p-2 w-full @error('name') border-red-500 @enderror">
 
@@ -16,8 +16,8 @@
         </div>
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
-            Bijwerken
+            {{ __('admin/categories.save') }}
         </button>
-        <a href="{{ route('admin.categories.index') }}" class="ml-2 text-gray-600">Annuleren</a>
+        <a href="{{ route('admin.categories.index') }}" class="ml-2 text-gray-600">{{ __('admin/categories.cancel') }}</a>
     </form>
 </x-admin-layout>
