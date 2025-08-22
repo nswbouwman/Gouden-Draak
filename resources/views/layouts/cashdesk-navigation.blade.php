@@ -6,25 +6,25 @@
     <div class="flex items-center space-x-6">
         <a href="{{ route('cashdesk.index') }}">
             <div class="px-6 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg border border-blue-500 hover:bg-blue-200 transition">
-                Kassa
+                {{ __('cashdesk/navbar.cashdesk') }}
             </div>
         </a>
 
         <a href="{{ route('cashdesk.menu') }}">
             <div class="px-6 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg border border-blue-500 hover:bg-blue-200 transition">
-                Gerechten
+                {{ __('cashdesk/navbar.dishes') }}
             </div>
         </a>
 
         <a href="{{ route('sales.index') }}">
             <div class="px-6 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg border border-blue-500 hover:bg-blue-200 transition">
-                Verkoop Overzicht
+               {{ __('cashdesk/navbar.sales-overview') }}
             </div>
         </a>
 
         <a href="{{ route('logout') }}" class="ml-12">
             <div class="px-6 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg border border-blue-500 hover:bg-blue-200 transition">
-                Uitloggen
+                {{ __('cashdesk/navbar.logout') }}
             </div>
         </a>
     </div>
