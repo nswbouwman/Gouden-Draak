@@ -10,5 +10,8 @@ return [
     'own-remark' => 'Eigen opmerking',
     'total' => 'Totaal:',
     'pay' => 'Afrekenen',
-    'delete' => 'Verwijderen'
+    'delete' => 'Verwijderen',
+    'no-items-selected' => 'Geen items geselecteerd.',
+    'order-success' => 'Bestelling succesvol geplaatst!',
+    'order-error' => 'Er is een fout opgetreden.'
 ];

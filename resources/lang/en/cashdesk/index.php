@@ -10,5 +10,8 @@ return [
     'own-remark' => 'Own remark',
     'total' => 'Total:',
     'pay' => 'Checkout',
-    'delete' => 'Delete'
+    'delete' => 'Delete',
+    'no-items-selected' => 'No items selected.',
+    'order-success' => 'Order placed successfully!',
+    'order-error' => 'An error has occurred.'
 ];
