@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slider-with-border-tablet>
-        <h1 class="text-4xl font-bold">Bestellen</h1>
-        <h2 class="text-2xl font-bold">Tafel {{ $table_nr }}</h2>
-        <p class="mb-4">Bevestigen doe je onderaan!</p>
+        <h1 class="text-4xl font-bold">{{ __('orders.order') }}</h1>
+        <h2 class="text-2xl font-bold">{{ __('orders.table') }} {{ $table_nr }}</h2>
+        <p class="mb-4 text-lg">{{ __('orders.below') }}</p>
 
         <div class="p-4 bg-white rounded-t shadow text-sm font-serif max-w-6xl mx-auto">
             @foreach ($dishTypes as $type)
@@ -32,7 +32,7 @@
                                 <span class="ml-4 me-4 w-14">€ {{ number_format($item->price, 2, ',', '.') }}</span>
                                 <button
                                     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded addMenuItem w-24"
-                                    value="{{ $item->id }}">Toevoegen</button>
+                                    value="{{ $item->id }}">{{ __('orders.add') }}</button>
                             </li>
                         @endforeach
                     </ul>
@@ -42,8 +42,8 @@
 
         <!-- Order -->
         <div class="p-4 bg-white shadow text-sm font-serif max-w-6xl mx-auto">
-            <div class="text-lg font-bold text-center mb-4 pe-[11.5rem]">Gerechten in bestelling</div>
-            <div class="pe-[11.5rem]" id="empty">De bestelling is op dit moment leeg.</div>
+            <div class="text-lg font-bold text-center mb-4 pe-[11.5rem]">{{ __('orders.in-order') }}</div>
+            <div class="pe-[11.5rem] text-lg" id="empty">{{ __('orders.empty-order') }}</div>
             <ul class="itemSelectedList">
                 @foreach ($dishTypes as $type)
                     @foreach ($type->menuItems as $item)
@@ -78,22 +78,22 @@
 
         <!-- Total -->
         <div class="p-4 bg-white rounded-b shadow text-sm font-serif max-w-6xl mx-auto">
-            <div class="pe-[11.5rem]">
+            <div class="pe-[11.5rem] text-lg">
                 <div class="flex justify-center mb-4">
-                    <p class="me-8">Totaal:</p>
+                    <p class="me-8">{{ __('orders.total') }}</p>
                     <span>€ </span><span class="totalAmount">0,00</span>
                 </div>
-                <div class="ms-4">
-                    <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
-                        id="payOrder">Bestellen</button>
-                    <button class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded ms-8"
-                        id="clearOrder">Verwijderen</button>
+                <div class="flex justify-center">
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded"
+                        id="payOrder">{{ __('orders.order') }}</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded ms-8"
+                        id="clearOrder">{{ __('orders.delete') }}</button>
                 </div>
             </div>
             @if ($orderCount > 0)
                 <div class="pe-[11.5rem]">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded mt-8 text-lg"
-                        id="pay">Afrekennen</button>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 rounded mt-8 text-lg"
+                        id="pay">{{ __('orders.pay') }}</button>
                 </div>
             @endif
         </div>
