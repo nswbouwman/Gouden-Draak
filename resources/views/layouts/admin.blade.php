@@ -12,13 +12,13 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
+        <script src="https://kit.fontawesome.com/db5e8007c3.js" crossorigin="anonymous"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
         <nav class="bg-blue-900s p-4 flex justify-between">
-            <div class="font-bold">Admin Dashboard</div>
+            <a href="{{ route('admin.dashboard') }}" class="font-bold">Admin Dashboard</a>
             <div>
-                <a href="{{ route('admin.dashboard') }}">Dashboard</a>
                 <a href="{{ route('admin.menu.index') }}">Menu beheer</a>
                 <a>Pagina's</a>
                 <a href="{{ route('logout') }}" class="ml-12">

@@ -9,6 +9,7 @@ use App\Http\Controllers\SalesOverviewController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminMenuController;
+use App\Http\Controllers\Admin\AdminDishTypeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,6 +42,7 @@ Route::post('/orders', [CashDeskController::class, 'storeOrder'])->middleware('a
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('menu', AdminMenuController::class);
+    Route::resource('categories', AdminDishTypeController::class);
 });
 
 Route::get('/formulier', [FormController::class, 'index'])->name('form.index');
