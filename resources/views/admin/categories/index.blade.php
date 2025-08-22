@@ -1,15 +1,15 @@
 <x-admin-layout>
-    <h1 class="text-2xl font-bold mb-4">Categorieën beheren</h1>
+    <h1 class="text-2xl font-bold mb-4">{{ __('admin/categories.manage-categories') }}</h1>
 
     <a href="{{ route('admin.categories.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded mb-4 inline-block">
-        + Nieuwe categorie
+        {{ __('admin/categories.create') }}
     </a>
 
     <table class="w-full border">
         <thead class="bg-gray-200">
             <tr>
-                <th class="p-2">Naam</th>
-                <th class="p-2">Acties</th>
+                <th class="p-2">{{ __('admin/categories.name') }}</th>
+                <th class="p-2">{{ __('admin/categories.actions') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="2" class="p-2">Nog geen categorieën</td></tr>
+                <tr><td colspan="2" class="p-2">{{ __('admin/categories.no-categories') }}</td></tr>
             @endforelse
         </tbody>
     </table>
