@@ -178,7 +178,7 @@
             });
 
             if (items.length === 0) {
-                alert("Geen gerechten geselecteerd.");
+                alert("{{ __('orders.no-dishes') }}");
                 return;
             }
 
@@ -198,12 +198,12 @@
             const result = await response.json();
 
             if (result.success) {
-                alert("Bestelling succesvol geplaatst!");
+                alert("{{ __('orders.order-placed') }}");
                 location.reload();
             } else if (result.message) {
                 alert(result.message);
             } else {
-                alert("Er is een fout opgetreden.");
+                alert("{{ __('orders.order-error') }}");
             }
         });
 

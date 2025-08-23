@@ -32,7 +32,7 @@
                                     <button 
                                         class="favorite-btn mr-2 text-lg {{ $item->is_favorite ? 'text-yellow-500' : 'text-gray-300 hover:text-yellow-400' }}"
                                         data-item-id="{{ $item->id }}"
-                                        title="{{ $item->is_favorite ? 'Remove from favorites' : 'Add to favorites' }}">
+                                        title="{{ $item->is_favorite ? __('menu.remove-from-favorites') : __('menu.add-to-favorites') }}">
                                         {{ $item->is_favorite ? '★' : '☆' }}
                                     </button>
                                     

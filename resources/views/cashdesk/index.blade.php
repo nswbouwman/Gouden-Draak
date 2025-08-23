@@ -192,7 +192,7 @@
             });
 
             if (items.length === 0) {
-                alert("Geen items geselecteerd.");
+                alert("{{ __('cashdesk/index.no-items-selected') }}");
                 return;
             }
 
@@ -212,10 +212,10 @@
             const result = await response.json();
 
             if (result.success) {
-                alert("Bestelling succesvol geplaatst!");
+                alert("{{ __('cashdesk/index.order-success') }}");
                 location.reload();
             } else {
-                alert("Er is een fout opgetreden.");
+                alert("{{ __('cashdesk/index.order-error') }}");
             }
         });
     });

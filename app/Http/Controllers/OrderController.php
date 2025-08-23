@@ -34,7 +34,7 @@ class OrderController extends Controller
             if ($placedOrderAmount >= 5) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Je hebt het maximale aantal bestelling gehaald.'
+                    'message' => __('orders.max-orders-reached')
                 ], 429);
             }
     
@@ -43,7 +43,7 @@ class OrderController extends Controller
             if ($timeDifference < 10) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Je moet nog ' . round(10 - $timeDifference, 2) . ' minuten wachten voordat je opnieuw kunt bestellen.'
+                    'message' => __('orders.wait-minutes', ['minutes' => round(10 - $timeDifference, 2)])
                 ], 429);
             }
         }
