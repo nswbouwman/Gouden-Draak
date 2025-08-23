@@ -1,6 +1,6 @@
 <div class="border-b-4 border-blue-600 flex items-center justify-between px-6 py-4 bg-blue-50">
     <div class="flex-shrink-0">
-        <img src="{{ asset('images/goodpay.png') }}" alt="Goodpay Logo" class="h-20">
+        <img src="{{ asset('images/goodpay.png') }}" alt="{{ __('navbar.goodpay-logo') }}" class="h-20">
     </div>
 
     <div class="flex items-center space-x-6">
