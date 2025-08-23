@@ -10,6 +10,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminMenuController;
 use App\Http\Controllers\Admin\AdminDishTypeController;
+use App\Http\Controllers\Admin\SalesSummaryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,6 +44,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('menu', AdminMenuController::class);
     Route::resource('categories', AdminDishTypeController::class);
+    Route::get('/sales', [SalesSummaryController::class, 'index'])->name('sales.index');
+    Route::get('/sales/{file}', [SalesSummaryController::class, 'download'])->name('sales.download');
 });
 
 Route::get('/formulier', [FormController::class, 'index'])->name('form.index');

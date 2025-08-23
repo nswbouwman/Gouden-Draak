@@ -20,6 +20,9 @@
             <a href="{{ route('admin.dashboard') }}" class="font-bold">{{ __('admin/navigation.title') }}</a>
             <div>
                 <a href="{{ route('admin.menu.index') }}">{{ __('admin/menu.manage-menu') }}</a>
+                <a href="{{ route('admin.sales.index') }}" class="ml-12">
+                    {{ __('admin/sales.title') }}
+                </a>
                 <a href="{{ route('logout') }}" class="ml-12">
                     {{ __('admin/navigation.logout') }}
                 </a>
