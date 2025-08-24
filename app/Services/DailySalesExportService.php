@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Mail\DailySalesReportMail;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Storage;
@@ -47,6 +48,10 @@ class DailySalesExportService
 
         Storage::makeDirectory('sales');
         $writer->save(Storage::path($filename));
+
+        // Send Email
+        $filePath = Storage::path($filename);
+        Mail::to('yourmail@gmail.com')->send(new DailySalesReportMail($filePath, $date));
 
         return $filename;
     }
