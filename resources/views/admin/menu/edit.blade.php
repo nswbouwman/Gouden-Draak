@@ -19,6 +19,7 @@
         <div>
             <label>{{ __('admin/menu.name') }}</label>
             <input type="text" name="name" value="{{ $menu->name }}" class="border rounded p-2 w-full">
+            <x-input-error :messages="$errors->get('name')" />
         </div>
 
         <div>
@@ -29,6 +30,7 @@
         <div>
             <label>{{ __('admin/menu.price') }}</label>
             <input type="number" step="0.01" name="price" value="{{ $menu->price }}" class="border rounded p-2 w-full">
+            <x-input-error :messages="$errors->get('price')" />
         </div>
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">{{ __('admin/menu.save') }}</button>
