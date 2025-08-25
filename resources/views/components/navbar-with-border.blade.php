@@ -1,22 +1,25 @@
 <table class="p-1 w-full border-collapse">
     <tr class="h-12 bg-red-600">
         <td class="text-center w-3/10 text-yellow-400 text-3xl">
-            <img class="align-middle inline h-12" src="{{ asset('images/dragon-small.png') }}" alt="{{ __('navbar.image-gouden-draak') }}">
-            <span class="font-chinese">De Gouden Draak</span>
-            <img class="align-middle inline h-12" src="{{ asset('images/dragon-small-flipped.png') }}" alt="{{ __('navbar.image-gouden-draak') }}">
+            <a href="{{ route('index') }}">
+                <img class="align-middle inline h-12" src="{{ asset('images/dragon-small.png') }}" alt="{{ __('navbar.image-gouden-draak') }}">
+                <span class="font-chinese">De Gouden Draak</span>
+                <img class="align-middle inline h-12" src="{{ asset('images/dragon-small-flipped.png') }}" alt="{{ __('navbar.image-gouden-draak') }}">
+            </a>
         </td>
         <td class="overflow-hidden">
-            <a href="paginas/aanbiedingen.html" class="text-yellow-400 font-bold no-underline">
+            <a href="{{ route('offers') }}" class="text-yellow-400 font-bold no-underline">
                 <div class="marquee font-serif font-bold">
                     {{ __('navbar.welcome') }}
                 </div>
             </a>
         </td>
         <td class="text-center w-3/10 text-yellow-400 text-3xl">
-            <img class="align-middle inline h-12" src="{{ asset('images/dragon-small.png') }}" alt="{{ __('navbar.image-gouden-draak') }}">
-            <span class="font-chinese">De Gouden Draak</span>
-            <img class="align-middle inline h-12" src="{{ asset('images/dragon-small-flipped.png') }}"
-                alt="{{ __('navbar.image-gouden-draak') }}">
+            <a href="{{ route('index') }}">
+                <img class="align-middle inline h-12" src="{{ asset('images/dragon-small.png') }}" alt="{{ __('navbar.image-gouden-draak') }}">
+                <span class="font-chinese">De Gouden Draak</span>
+                <img class="align-middle inline h-12" src="{{ asset('images/dragon-small-flipped.png') }}" alt="{{ __('navbar.image-gouden-draak') }}">
+            </a>
         </td>
     </tr>
 </table>

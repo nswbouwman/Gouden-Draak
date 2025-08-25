@@ -4,9 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CashDeskController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\OrderController;
-// TODO This controller doesn't exist v
-use App\Http\Controllers\SalesOverviewController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminMenuController;
 use App\Http\Controllers\Admin\AdminDishTypeController;
@@ -18,6 +17,8 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/menukaart', [MenuController::class, 'menu'])->name('menu');
+
+Route::get('/aanbiedingen', [OfferController::class, 'index'])->name('offers');
 
 Route::post('/menu/favorite/toggle', [MenuController::class, 'toggleFavorite'])->name('menu.favorite.toggle');
 

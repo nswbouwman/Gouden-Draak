@@ -33,6 +33,21 @@
             <x-input-error :messages="$errors->get('price')" />
         </div>
 
+        <div>
+            <label>
+                <input type="checkbox" name="is_offer" value="1" {{ $menu->is_offer ? 'checked' : '' }}>
+                {{ __('offers.week-offer') }}
+            </label>
+        </div>
+
+        <div>
+            <label>{{ __('offers.offer-price') }}</label>
+            <input type="number" step="0.01" name="offer_price" 
+                value="{{ old('offer_price', $menu->offer_price) }}"
+                class="border rounded p-2 w-full">
+            <x-input-error :messages="$errors->get('offer_price')" />
+        </div>
+
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">{{ __('admin/menu.save') }}</button>
     </form>
 </x-admin-layout>

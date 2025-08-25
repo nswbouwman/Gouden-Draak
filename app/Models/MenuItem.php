@@ -13,6 +13,8 @@ class MenuItem extends Model
         'name',
         'description',
         'price',
+        'is_offer',
+        'offer_price',
     ];
 
     public function dishType()

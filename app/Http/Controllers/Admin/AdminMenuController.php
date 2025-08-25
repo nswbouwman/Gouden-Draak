@@ -77,9 +77,13 @@ class AdminMenuController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
+            'is_offer' => 'boolean',
+            'offer_price' => 'nullable|numeric|min:0',
         ]);
 
-        $menu->update($request->only('dish_type_id','name','description','price'));
+        $menu->update($request->only(
+            'dish_type_id','name','description','price','is_offer','offer_price'
+        ));
 
         return redirect()->route('admin.menu.index')->with('success', 'Gerecht bijgewerkt.');
     }
