@@ -11,7 +11,9 @@ class AdminMenuController extends Controller
 {
     public function index()
     {
-        $dishTypes = DishType::with('menuItems')->get();
+        $dishTypes = DishType::with(['menuItems' => function ($query) {
+            $query->orderBy('menu_number')->orderBy('menu_suffix');
+        }])->get();
         return view('admin.menu.index', compact('dishTypes'));
     }
 
@@ -29,27 +31,42 @@ class AdminMenuController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'base_menu_number' => 'nullable|integer',
+            'no_numbering' => 'boolean',
+            'is_offer' => 'boolean',
+            'offer_price' => 'nullable|numeric|min:0',
         ]);
 
-        if ($request->base_menu_number) {
-            $lastVariant = MenuItem::where('dish_type_id', $request->dish_type_id)
-                ->where('menu_number', $request->base_menu_number)
-                ->orderBy('menu_suffix', 'desc')
-                ->first();
+        $menuNumber = null;
+        $menuSuffix = null;
 
-            $newSuffix = $lastVariant && $lastVariant->menu_suffix
-                ? chr(ord($lastVariant->menu_suffix) + 1)
-                : 'a';
+        // If no numbering is requested, leave both null
+        if (!$request->no_numbering) {
+            if ($request->base_menu_number) {
+                // Creating a variant of existing item
+                $lastVariant = MenuItem::where('dish_type_id', $request->dish_type_id)
+                    ->where('menu_number', $request->base_menu_number)
+                    ->orderBy('menu_suffix', 'desc')
+                    ->first();
 
-            $menuNumber = $request->base_menu_number;
-            $menuSuffix = $newSuffix;
-        } else {
-            $lastItem = MenuItem::where('dish_type_id', $request->dish_type_id)
-                ->orderBy('menu_number', 'desc')
-                ->first();
+                $menuNumber = $request->base_menu_number;
+                
+                if ($lastVariant && $lastVariant->menu_suffix) {
+                    // Increment existing suffix (a->b, b->c, etc.)
+                    $menuSuffix = chr(ord($lastVariant->menu_suffix) + 1);
+                } else {
+                    // First variant gets 'a'
+                    $menuSuffix = 'a';
+                }
+            } else {
+                // Creating a new item with new number
+                $lastItem = MenuItem::where('dish_type_id', $request->dish_type_id)
+                    ->whereNotNull('menu_number')
+                    ->orderBy('menu_number', 'desc')
+                    ->first();
 
-            $menuNumber = $lastItem ? $lastItem->menu_number + 1 : 1;
-            $menuSuffix = null;
+                $menuNumber = $lastItem ? $lastItem->menu_number + 1 : 1;
+                $menuSuffix = null;
+            }
         }
 
         MenuItem::create([
@@ -59,6 +76,8 @@ class AdminMenuController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
+            'is_offer' => $request->boolean('is_offer'),
+            'offer_price' => $request->offer_price,
         ]);
 
         return redirect()->route('admin.menu.index')->with('success', 'Gerecht toegevoegd.');
@@ -81,9 +100,14 @@ class AdminMenuController extends Controller
             'offer_price' => 'nullable|numeric|min:0',
         ]);
 
-        $menu->update($request->only(
-            'dish_type_id','name','description','price','is_offer','offer_price'
-        ));
+        $menu->update([
+            'dish_type_id' => $request->dish_type_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'is_offer' => $request->boolean('is_offer'),
+            'offer_price' => $request->offer_price,
+        ]);
 
         return redirect()->route('admin.menu.index')->with('success', 'Gerecht bijgewerkt.');
     }
