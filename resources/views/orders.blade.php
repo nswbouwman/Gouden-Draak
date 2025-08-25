@@ -53,8 +53,57 @@
             @endforeach
         </div>
 
+        <!-- History -->
+        <div class="p-4 bg-white rounded-t shadow text-sm font-serif max-w-6xl mx-auto">
+            <h2 class="text-xl font-bold border-b border-gray-300 mb-2 pe-[11.5rem]">
+                {{ __('orders.history') }}
+            </h2>
+            @if ($dishHistory->isEmpty())
+                <p class="mb-4 text-lg pe-[12.5rem]">{{ __('orders.empty-history') }}</p>
+            @else
+                <ul>
+                    @foreach ($dishHistory as $orderItem)
+                        @php $item = $orderItem->menuItem; @endphp
+                        <li class="flex justify-between items-center py-1 border-b border-dotted border-gray-300 group">
+                            <div class="flex items-center flex-1">
+                                <span class="flex-1">
+                                    @if ($item->menu_number)
+                                        {{ $item->menu_number }}{{ $item->menu_suffix }}.
+                                    @else
+                                        @if ($item->menu_suffix)
+                                            {{ $item->menu_suffix }}.
+                                        @endif
+                                    @endif
+                                    {!! $item->name !!}
+                                    @if ($item->is_offer)
+                                        <span
+                                            class="bg-red-500 text-white px-2 py-1 text-xs rounded ml-2">AANBIEDING</span>
+                                    @endif
+                                    @if ($item->description)
+                                        <span class="text-gray-500 italic">({!! $item->description !!})</span>
+                                    @endif
+                                </span>
+                            </div>
+                            <span class="ml-4 me-4 w-14">
+                                @if ($item->is_offer && $item->offer_price)
+                                    <span class="line-through text-gray-500 text-xs block">€
+                                        {{ number_format($item->price, 2, ',', '.') }}</span>
+                                    <span class="text-red-600 font-bold">€
+                                        {{ number_format($item->offer_price, 2, ',', '.') }}</span>
+                                @else
+                                    € {{ number_format($item->price, 2, ',', '.') }}
+                                @endif
+                            </span>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded addMenuItem w-24"
+                                value="{{ $item->id }}">{{ __('orders.add') }}</button>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
+
         <!-- Order -->
-        <div class="p-4 bg-white shadow text-sm font-serif max-w-6xl mx-auto">
+        <div class="p-4 bg-white shadow text-sm font-serif max-w-6xl mx-auto {{ $orderCount < 5 ? '' : 'hidden' }}">
             <div class="text-lg font-bold text-center mb-4 pe-[11.5rem]">{{ __('orders.in-order') }}</div>
             <div class="pe-[11.5rem] text-lg" id="empty">{{ __('orders.empty-order') }}</div>
             <ul class="itemSelectedList">
@@ -98,7 +147,7 @@
 
         <!-- Total -->
         <div class="p-4 bg-white rounded-b shadow text-sm font-serif max-w-6xl mx-auto">
-            <div class="pe-[11.5rem] text-lg">
+            <div class="pe-[11.5rem] text-lg {{ $orderCount < 5 ? '' : 'hidden' }}">
                 <div class="flex justify-center mb-4">
                     <p class="me-8">{{ __('orders.total') }}</p>
                     <span>€ </span><span class="totalAmount">0,00</span>
@@ -131,10 +180,6 @@
                 <div id="cocktail-images" class="flex space-x-4 mt-4 overflow-x-auto">
                 </div>
             @endif
-        </div>
-        <div class="p-4 bg-white rounded-b shadow text-sm font-serif max-w-6xl mx-auto flex justify-center pe-[12.5rem] hidden"
-            id="qr">
-            <p>{!! $qr !!}</p>
         </div>
     </x-slider-with-border-tablet>
 </x-app-layout>
@@ -247,7 +292,6 @@
             document.getElementById('qr').classList.remove('hidden');
         });
 
-        // TODO translation
         function displayCocktails(drinks, container, sortOrder = 'az') {
             container.innerHTML = "";
             if (drinks && drinks.length > 0) {

@@ -15,5 +15,7 @@ return [
     'max-orders-reached' => 'Je hebt het maximale aantal bestelling gehaald.',
     'wait-minutes' => 'Je moet nog :minutes minuten wachten voordat je opnieuw kunt bestellen.',
     'api-down' => 'De API is momenteel niet bereikbaar. Probeer het later opnieuw.',
-    'no-cocktails-name' => 'Geen cocktails met die naam gevonden'
+    'no-cocktails-name' => 'Geen cocktails met die naam gevonden',
+    'history' => 'Bestelgeschiedenis',
+    'empty-history' => 'Je hebt nog geen bestellingen geplaatst.',
 ];

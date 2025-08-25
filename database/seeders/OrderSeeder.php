@@ -18,6 +18,18 @@ class OrderSeeder extends Seeder
                 'created_at' => now()->subMinutes($i * 10 + 10),
                 'updated_at' => now()->subMinutes($i * 10 + 10),
             ]);
+
+            $menuItemId = rand(1, 165);
+            $price = DB::table('menu_items')->where('id', $menuItemId)->value('price');
+
+            DB::table('order_items')->insert([
+                'order_id' => $i + 1,
+                'menu_item_id' => $menuItemId,
+                'quantity' => rand(1, 3),
+                'price' => $price,
+                'created_at' => now()->subMinutes($i * 10 + 10),
+                'updated_at' => now()->subMinutes($i * 10 + 10),
+            ]);
         }
     }
 }

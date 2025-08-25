@@ -18,7 +18,7 @@ class OrderController extends Controller
         }])->get();
 
         $latestOrderTime = Order::where('table_nr', $table_nr)->orderBy('created_at', 'desc')->first();
-        
+
         if (!$latestOrderTime) {
             $timeDifference = 10;
         } else {
@@ -27,10 +27,19 @@ class OrderController extends Controller
 
         $orderCount = Order::where('table_nr', $table_nr)->count();
 
+        $dishHistory = Order::where('table_nr', $table_nr)
+            ->with('items.menuItem')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $dishHistory = $dishHistory->flatMap(function ($order) {
+            return $order->items;
+        })->unique('menu_item_id')->values();
+
         $url = route('form.index');
         $qr = QrCode::size(200)->generate($url);
 
-        return view('orders', compact('table_nr', 'dishTypes', 'qr', 'orderCount', 'timeDifference'));
+        return view('orders', compact('table_nr', 'dishTypes', 'qr', 'orderCount', 'timeDifference', 'dishHistory'));
     }
 
     public function store(Request $request, $table_nr)
@@ -45,9 +54,9 @@ class OrderController extends Controller
                     'message' => __('orders.max-orders-reached')
                 ], 429);
             }
-    
+
             $timeDifference = -now()->diffInMinutes($latestOrderTime->created_at);
-    
+
             if ($timeDifference < 10) {
                 return response()->json([
                     'success' => false,
@@ -68,10 +77,10 @@ class OrderController extends Controller
 
         foreach ($validated['items'] as $item) {
             $menuItem = MenuItem::find($item['id']);
-            
+
             // Use offer price if item is on offer and has an offer price, otherwise use regular price
             $price = ($menuItem->is_offer && $menuItem->offer_price) ? $menuItem->offer_price : $menuItem->price;
-            
+
             OrderItem::create([
                 'order_id' => $order->id,
                 'menu_item_id' => $menuItem->id,
