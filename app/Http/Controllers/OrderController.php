@@ -60,11 +60,15 @@ class OrderController extends Controller
 
         foreach ($validated['items'] as $item) {
             $menuItem = MenuItem::find($item['id']);
+            
+            // Use offer price if item is on offer and has an offer price, otherwise use regular price
+            $price = ($menuItem->is_offer && $menuItem->offer_price) ? $menuItem->offer_price : $menuItem->price;
+            
             OrderItem::create([
                 'order_id' => $order->id,
                 'menu_item_id' => $menuItem->id,
                 'quantity' => $item['quantity'],
-                'price' => $menuItem->price,
+                'price' => $price,
             ]);
         }
 

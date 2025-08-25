@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\MenuItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CashDeskController extends Controller
 {
@@ -40,11 +41,14 @@ class CashDeskController extends Controller
 
         foreach ($validated['items'] as $item) {
             $menuItem = MenuItem::find($item['id']);
+            
+            $price = ($menuItem->is_offer && $menuItem->offer_price) ? $menuItem->offer_price : $menuItem->price;
+            
             OrderItem::create([
                 'order_id' => $order->id,
                 'menu_item_id' => $menuItem->id,
                 'quantity' => $item['quantity'],
-                'price' => $menuItem->price,
+                'price' => $price,
                 'remark' => $item['remark'] ?? null,
             ]);
         }

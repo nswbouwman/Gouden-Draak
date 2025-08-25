@@ -31,12 +31,21 @@
                                                 {{ $item->menu_number }}{{ $item->menu_suffix }}.</td>
                                             <td class="w-[70%]">
                                                 {!! $item->name !!}
+                                                @if ($item->is_offer)
+                                                    <span class="bg-red-500 text-white px-2 py-1 text-xs rounded ml-2">AANBIEDING</span>
+                                                @endif
                                                 @if (!empty($item->description))
                                                     <span class="text-gray-500 italic">({!! $item->description !!})</span>
                                                 @endif
                                             </td>
-                                            <td class="w-[10%] min-w-[70px]">€
-                                                {{ number_format($item->price, 2, ',', ' ') }}</td>
+                                            <td class="w-[10%] min-w-[70px]">
+                                                @if ($item->is_offer && $item->offer_price)
+                                                    <span class="line-through text-gray-500">€ {{ number_format($item->price, 2, ',', ' ') }}</span><br>
+                                                    <span class="text-red-600 font-bold">€ {{ number_format($item->offer_price, 2, ',', ' ') }}</span>
+                                                @else
+                                                    € {{ number_format($item->price, 2, ',', ' ') }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 <button
                                                     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded addMenuItem"
@@ -60,18 +69,24 @@
                         <table class="w-full itemSelectedTable">
                             @foreach ($dishTypes as $type)
                                 @foreach ($type->menuItems as $item)
-                                    <tr class="hidden menuItem_{{ $item->id }}" data-price="{{ $item->price }}">
+                                    @php
+                                        $displayPrice = $item->is_offer && $item->offer_price ? $item->offer_price : $item->price;
+                                    @endphp
+                                    <tr class="hidden menuItem_{{ $item->id }}" data-price="{{ $displayPrice }}">
                                         <td class="w-[10%] align-top">
                                             {{ $item->menu_number }}{{ $item->menu_suffix }}.</td>
                                         <td class="w-[40%]">
                                             {!! $item->name !!}
+                                            @if ($item->is_offer)
+                                                <span class="bg-red-500 text-white px-1 py-0.5 text-xs rounded ml-1">AANBIEDING</span>
+                                            @endif
                                             @if (!empty($item->description))
                                                 <i>({!! $item->description !!})</i>
                                             @endif
                                         </td>
                                         <td class="w-[10%] min-w-[70px]">
                                             <span>€ </span><span
-                                                class="subAmount">{{ number_format($item->price, 2, ',', ' ') }}</span>
+                                                class="subAmount">{{ number_format($displayPrice, 2, ',', ' ') }}</span>
                                         </td>
                                         <td class="w-[40%]">
                                             <input type="number" name="{{ $item->id }}" min="0"

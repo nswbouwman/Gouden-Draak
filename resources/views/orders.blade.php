@@ -24,12 +24,22 @@
                                             @endif
                                         @endif
                                         {!! $item->name !!}
+                                        @if ($item->is_offer)
+                                            <span class="bg-red-500 text-white px-2 py-1 text-xs rounded ml-2">AANBIEDING</span>
+                                        @endif
                                         @if ($item->description)
                                             <span class="text-gray-500 italic">({!! $item->description !!})</span>
                                         @endif
                                     </span>
                                 </div>
-                                <span class="ml-4 me-4 w-14">€ {{ number_format($item->price, 2, ',', '.') }}</span>
+                                <span class="ml-4 me-4 w-14">
+                                    @if ($item->is_offer && $item->offer_price)
+                                        <span class="line-through text-gray-500 text-xs block">€ {{ number_format($item->price, 2, ',', '.') }}</span>
+                                        <span class="text-red-600 font-bold">€ {{ number_format($item->offer_price, 2, ',', '.') }}</span>
+                                    @else
+                                        € {{ number_format($item->price, 2, ',', '.') }}
+                                    @endif
+                                </span>
                                 <button
                                     class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded addMenuItem w-24"
                                     value="{{ $item->id }}">{{ __('orders.add') }}</button>
@@ -47,8 +57,11 @@
             <ul class="itemSelectedList">
                 @foreach ($dishTypes as $type)
                     @foreach ($type->menuItems as $item)
+                        @php
+                            $displayPrice = $item->is_offer && $item->offer_price ? $item->offer_price : $item->price;
+                        @endphp
                         <li class="hidden menuItem_{{ $item->id }} flex items-center border-b border-dotted border-gray-300 py-2"
-                            data-price="{{ $item->price }}">
+                            data-price="{{ $displayPrice }}">
                             <div class="flex items-center flex-1">
                                 <span class="flex-1">
                                     @if ($item->menu_number)
@@ -59,13 +72,16 @@
                                         @endif
                                     @endif
                                     {!! $item->name !!}
+                                    @if ($item->is_offer)
+                                        <span class="bg-red-500 text-white px-1 py-0.5 text-xs rounded ml-1">AANBIEDING</span>
+                                    @endif
                                     @if ($item->description)
                                         <span class="text-gray-500 italic">({!! $item->description !!})</span>
                                     @endif
                                 </span>
                             </div>
                             <span class="ml-4 me-4 w-14">€ <span
-                                    class="subAmount">{{ number_format($item->price, 2, ',', '.') }}</span></span>
+                                    class="subAmount">{{ number_format($displayPrice, 2, ',', '.') }}</span></span>
                             <div class="w-24">
                                 <input type="number" name="{{ $item->id }}" min="0" max="20"
                                     value="0" class="w-full border rounded px-1 py-0.5">
