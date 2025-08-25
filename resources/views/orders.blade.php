@@ -83,11 +83,9 @@
                     <p class="me-8">{{ __('orders.total') }}</p>
                     <span>€ </span><span class="totalAmount">0,00</span>
                 </div>
-                <div class="flex justify-center">
-                    <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded"
-                        id="payOrder">{{ __('orders.order') }}</button>
-                    <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded ms-8"
-                        id="clearOrder">{{ __('orders.delete') }}</button>
+                <div id="vue-menu" class="flex justify-center">
+                    <order-button>{{ __('orders.order') }}</order-button>
+                    <delete-button>{{ __('orders.delete') }}</delete-button>
                 </div>
             </div>
             @if ($orderCount > 0)
@@ -97,7 +95,8 @@
                 </div>
             @endif
         </div>
-        <div class="p-4 bg-white rounded-b shadow text-sm font-serif max-w-6xl mx-auto flex justify-center pe-[12.5rem] hidden" id="qr">
+        <div class="p-4 bg-white rounded-b shadow text-sm font-serif max-w-6xl mx-auto flex justify-center pe-[12.5rem] hidden"
+            id="qr">
             <p>{!! $qr !!}</p>
         </div>
     </x-slider-with-border-tablet>
