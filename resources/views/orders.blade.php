@@ -99,7 +99,7 @@
                     <p class="me-8">{{ __('orders.total') }}</p>
                     <span>€ </span><span class="totalAmount">0,00</span>
                 </div>
-                <div id="vue-menu" class="flex justify-center">
+                <div id="vue-menu" class="flex justify-center space-x-8">
                     <order-button>{{ __('orders.order') }}</order-button>
                     <delete-button>{{ __('orders.delete') }}</delete-button>
                 </div>
