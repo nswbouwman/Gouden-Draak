@@ -13,5 +13,7 @@ return [
     'order-placed' => 'Order placed successfully!',
     'order-error' => 'An error has occurred.',
     'max-orders-reached' => 'You have reached the maximum number of orders.',
-    'wait-minutes' => 'You must wait :minutes minutes before you can order again.'
+    'wait-minutes' => 'You must wait :minutes minutes before you can order again.',
+    'api-down' => 'The API is currently unavailable. Please try again later.',
+    'no-cocktails-name' => 'No cocktails found with that name.'
 ];

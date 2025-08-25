@@ -17,12 +17,20 @@ class OrderController extends Controller
             $query->orderBy('menu_number')->orderBy('menu_suffix');
         }])->get();
 
+        $latestOrderTime = Order::where('table_nr', $table_nr)->orderBy('created_at', 'desc')->first();
+        
+        if (!$latestOrderTime) {
+            $timeDifference = 10;
+        } else {
+            $timeDifference = -now()->diffInMinutes($latestOrderTime->created_at);
+        }
+
         $orderCount = Order::where('table_nr', $table_nr)->count();
 
         $url = route('form.index');
         $qr = QrCode::size(200)->generate($url);
 
-        return view('orders', compact('table_nr', 'dishTypes', 'qr', 'orderCount'));
+        return view('orders', compact('table_nr', 'dishTypes', 'qr', 'orderCount', 'timeDifference'));
     }
 
     public function store(Request $request, $table_nr)

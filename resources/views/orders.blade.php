@@ -25,7 +25,8 @@
                                         @endif
                                         {!! $item->name !!}
                                         @if ($item->is_offer)
-                                            <span class="bg-red-500 text-white px-2 py-1 text-xs rounded ml-2">AANBIEDING</span>
+                                            <span
+                                                class="bg-red-500 text-white px-2 py-1 text-xs rounded ml-2">AANBIEDING</span>
                                         @endif
                                         @if ($item->description)
                                             <span class="text-gray-500 italic">({!! $item->description !!})</span>
@@ -34,8 +35,10 @@
                                 </div>
                                 <span class="ml-4 me-4 w-14">
                                     @if ($item->is_offer && $item->offer_price)
-                                        <span class="line-through text-gray-500 text-xs block">€ {{ number_format($item->price, 2, ',', '.') }}</span>
-                                        <span class="text-red-600 font-bold">€ {{ number_format($item->offer_price, 2, ',', '.') }}</span>
+                                        <span class="line-through text-gray-500 text-xs block">€
+                                            {{ number_format($item->price, 2, ',', '.') }}</span>
+                                        <span class="text-red-600 font-bold">€
+                                            {{ number_format($item->offer_price, 2, ',', '.') }}</span>
                                     @else
                                         € {{ number_format($item->price, 2, ',', '.') }}
                                     @endif
@@ -73,7 +76,8 @@
                                     @endif
                                     {!! $item->name !!}
                                     @if ($item->is_offer)
-                                        <span class="bg-red-500 text-white px-1 py-0.5 text-xs rounded ml-1">AANBIEDING</span>
+                                        <span
+                                            class="bg-red-500 text-white px-1 py-0.5 text-xs rounded ml-1">AANBIEDING</span>
                                     @endif
                                     @if ($item->description)
                                         <span class="text-gray-500 italic">({!! $item->description !!})</span>
@@ -108,6 +112,23 @@
                 <div class="pe-[11.5rem]">
                     <button class="bg-blue-600 hover:bg-blue-700 text-white px-12 py-3 rounded mt-8 text-lg"
                         id="pay">{{ __('orders.pay') }}</button>
+                </div>
+            @endif
+            <div id="qr" class="p-4 text-sm font-serif flex justify-center pe-[12.5rem] hidden">
+                <p>{!! $qr !!}</p>
+            </div>
+            @if ($orderCount < 5 && $timeDifference < 10)
+                <div class="mt-8 pe-[12.5rem]">
+                    <input type="text" id="cocktail-search" placeholder="Search cocktail by name..."
+                        class="border rounded px-4 py-2 mb-4 w-80" />
+                    <button id="cocktail-search-btn"
+                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-4">Search</button>
+                    <select id="cocktail-sort" class="border rounded px-2 py-2 mb-4 w-40">
+                        <option value="az">A-Z</option>
+                        <option value="za">Z-A</option>
+                    </select>
+                </div>
+                <div id="cocktail-images" class="flex space-x-4 mt-4 overflow-x-auto">
                 </div>
             @endif
         </div>
@@ -225,5 +246,88 @@
         document.getElementById('pay').addEventListener('click', function() {
             document.getElementById('qr').classList.remove('hidden');
         });
+
+        // TODO translation
+        function displayCocktails(drinks, container, sortOrder = 'az') {
+            container.innerHTML = "";
+            if (drinks && drinks.length > 0) {
+                // Sort drinks by name
+                drinks.sort((a, b) => {
+                    if (sortOrder === 'az') {
+                        return a.strDrink.localeCompare(b.strDrink);
+                    } else {
+                        return b.strDrink.localeCompare(a.strDrink);
+                    }
+                });
+                cocktailDiv.classList.remove('justify-center');
+                cocktailDiv.classList.remove('pe-[12.5rem]');
+                drinks.forEach(drink => {
+                    const img = document.createElement('img');
+                    img.src = drink.strDrinkThumb;
+                    img.alt = drink.strDrink;
+                    img.title = drink.strDrink;
+                    img.className = "w-32 h-32 object-cover rounded shadow mb-2";
+                    container.appendChild(img);
+                });
+            } else {
+                cocktailDiv.classList.add('justify-center');
+                cocktailDiv.classList.add('pe-[12.5rem]');
+                container.innerText = "{{ __('orders.no-cocktails-name') }}";
+            }
+        }
+
+        const cocktailDiv = document.getElementById('cocktail-images');
+        const searchInput = document.getElementById('cocktail-search');
+        const searchBtn = document.getElementById('cocktail-search-btn');
+        const sortSelect = document.getElementById('cocktail-sort');
+        let lastDrinks = [];
+
+        function updateCocktailDisplay() {
+            const sortOrder = sortSelect ? sortSelect.value : 'az';
+            displayCocktails(lastDrinks, cocktailDiv, sortOrder);
+        }
+
+        // Initial load: list cocktails by first letter 'a'
+        if (cocktailDiv) {
+            fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a')
+                .then(response => response.json())
+                .then(data => {
+                    lastDrinks = data.drinks || [];
+                    updateCocktailDisplay();
+                })
+                .catch(() => {
+                    cocktailDiv.innerText = "{{ __('orders.api-down') }}";
+                });
+        }
+
+        // Search by name
+        if (searchBtn && searchInput && cocktailDiv) {
+            searchBtn.addEventListener('click', function() {
+                const query = searchInput.value.trim();
+                if (!query) return;
+                fetch(
+                        `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${encodeURIComponent(query)}`
+                    )
+                    .then(response => response.json())
+                    .then(data => {
+                        lastDrinks = data.drinks || [];
+                        updateCocktailDisplay();
+                    })
+                    .catch(() => {
+                        cocktailDiv.innerText = "{{ __('orders.api-down') }}";
+                    });
+            });
+            // Optional: search on Enter key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    searchBtn.click();
+                }
+            });
+        }
+
+        // Sort on dropdown change
+        if (sortSelect) {
+            sortSelect.addEventListener('change', updateCocktailDisplay);
+        }
     });
 </script>
