@@ -8,6 +8,11 @@ class FormController extends Controller
 {
     public function index()
     {
+        $locale = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+        if (in_array($locale, ['en', 'nl'])) {
+            App::setLocale($locale);
+        }
+
         return view('form');
     }
 

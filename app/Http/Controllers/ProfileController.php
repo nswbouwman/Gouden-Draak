@@ -16,6 +16,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $locale = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+        if (in_array($locale, ['en', 'nl'])) {
+            App::setLocale($locale);
+        }
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
@@ -26,6 +31,11 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        $locale = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+        if (in_array($locale, ['en', 'nl'])) {
+            App::setLocale($locale);
+        }
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -42,6 +52,11 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $locale = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+        if (in_array($locale, ['en', 'nl'])) {
+            App::setLocale($locale);
+        }
+
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);

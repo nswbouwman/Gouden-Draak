@@ -13,6 +13,11 @@ class OrderController extends Controller
 {
     public function index($table_nr)
     {
+        $locale = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+        if (in_array($locale, ['en', 'nl'])) {
+            App::setLocale($locale);
+        }
+
         $dishTypes = DishType::with(['menuItems' => function ($query) {
             $query->orderBy('menu_number')->orderBy('menu_suffix');
         }])->get();
