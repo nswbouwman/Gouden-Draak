@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\MenuItem;
 use App\Models\OrderItem;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\App;
 
 class OrderController extends Controller
 {

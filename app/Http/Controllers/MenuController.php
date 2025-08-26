@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MenuItem;
 use App\Models\DishType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class MenuController extends Controller
 {
