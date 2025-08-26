@@ -13,6 +13,10 @@ use App\Http\Controllers\Admin\SalesSummaryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    $locale = substr(request()->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+    if (in_array($locale, ['en', 'nl'])) {
+        App::setLocale($locale);
+    }
     return view('index');
 })->name('index');
 
